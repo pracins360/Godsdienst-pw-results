@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Results Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            rounded: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .example {
+            color: #999;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        .result {
+            background: #f0f0f0;
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .result-label {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .result-value {
+            color: #667eea;
+            font-size: 48px;
+            font-weight: bold;
+        }
+        
+        .formula {
+            background: #fff3cd;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Exam Results Calculator</h1>
+        
+        <div class="formula">
+            Formula: (Time in HH:MM) × x<br>
+            Example: 10:56 × x = 10.93 × x
+        </div>
+        
+        <div class="input-group">
+            <label for="time">Time (HH:MM)</label>
+            <input type="text" id="time" placeholder="10:56" maxlength="5">
+            <div class="example">Example: 10:56, 09:30, 14:25</div>
+        </div>
+        
+        <div class="input-group">
+            <label for="multiplier">Multiplier (x)</label>
+            <input type="number" id="multiplier" placeholder="1.5" step="0.1" min="0">
+            <div class="example">Example: 1.0, 1.5, 2.0</div>
+        </div>
+        
+        <button onclick="calculateResult()">Calculate</button>
+        
+        <div class="result" id="result">
+            <div class="result-label">Exam Result</div>
+            <div class="result-value" id="resultValue">0.0</div>
+        </div>
+    </div>
+
+    <script>
+        function calculateResult() {
+            // Get input values
+            const timeInput = document.getElementById('time').value;
+            const multiplier = document.getElementById('multiplier').value;
+            
+            // Validate inputs
+            if (!timeInput || !multiplier) {
+                alert('Please enter both time and multiplier');
+                return;
+            }
+            
+            // Parse time (HH:MM format)
+            const timeParts = timeInput.split(':');
+            if (timeParts.length !== 2) {
+                alert('Please enter time in HH:MM format (e.g., 10:56)');
+                return;
+            }
+            
+            const hours = parseInt(timeParts[0]);
+            const minutes = parseInt(timeParts[1]);
+            
+            if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+                alert('Please enter valid time (HH:MM between 00:00 and 23:59)');
+                return;
+            }
+            
+            // Convert time to decimal (10:56 = 10 + 56/60 = 10.9333...)
+            const decimalTime = hours + (minutes / 60);
+            
+            // Calculate result
+            const result = decimalTime * parseFloat(multiplier);
+            
+            // Display result with 1 decimal
+            const resultValue = result.toFixed(1);
+            document.getElementById('resultValue').textContent = resultValue;
+            document.getElementById('result').classList.add('show');
+        }
+        
+        // Auto-format time input
+        document.getElementById('time').addEventListener('input', function(e) {
+            let value = e.target.value;
+            
+            // Remove non-numeric characters
+            value = value.replace(/D/, '');
+            
+            // Add colon after 2 digits
+            if (value.length >= 3) {
+                value = value.substring(0, 2) + ':' + value.substring(2, 4);
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Calculate on Enter key
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateResult();
+            }
+        });
+    </script>
+</body>
+</html>
