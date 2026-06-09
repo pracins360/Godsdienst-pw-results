@@ -2,190 +2,342 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Teacher's Converter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Converter</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eaf3ff,#f8fbff);color:#122033}
-.app{width:100%;max-width:430px;min-height:100vh;margin:0 auto;background:#fff;padding:16px 18px 28px}
-.top{position:sticky;top:0;z-index:10;background:#fff;padding:8px 0 14px;border-bottom:1px solid #eef2f7}
-.formula{display:inline-block;background:#eef1f5;color:#405064;padding:8px 22px;border-radius:28px;font-size:23px;letter-spacing:1px;margin-bottom:10px}
-.resultBox{background:#0d1628;color:white;border-radius:28px;padding:16px 14px;box-shadow:0 10px 20px rgba(13,22,40,.25);text-align:center}
-.resultTitle{font-size:15px;letter-spacing:3px;color:#cbd5e1;font-weight:700}
-#result{font-size:68px;line-height:1;font-weight:900;color:#ffd21e;margin-top:4px}
-.decimal{margin-top:4px;font-size:15px;color:#cbd5e1}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#eaf3ff,#f8fbff);
+  color:#122033;
+}
+.app{
+  max-width:430px;
+  min-height:100vh;
+  margin:auto;
+  background:white;
+  padding:14px 18px 28px;
+}
+.top{
+  position:sticky;
+  top:0;
+  z-index:99;
+  background:white;
+  padding:8px 0 14px;
+  border-bottom:1px solid #eef2f7;
+}
+.formula{
+  display:inline-block;
+  background:#eef1f5;
+  color:#405064;
+  padding:8px 22px;
+  border-radius:28px;
+  font-size:23px;
+  margin-bottom:10px;
+}
+.resultBox{
+  background:#0d1628;
+  color:white;
+  border-radius:28px;
+  padding:16px;
+  text-align:center;
+  box-shadow:0 10px 20px rgba(13,22,40,.25);
+}
+.resultTitle{
+  font-size:15px;
+  letter-spacing:3px;
+  color:#cbd5e1;
+  font-weight:700;
+}
+#result{
+  font-size:72px;
+  font-weight:900;
+  color:#ffd21e;
+  line-height:1;
+  margin-top:4px;
+}
+.decimal{
+  color:#cbd5e1;
+  font-size:15px;
+  margin-top:5px;
+}
 .main{padding-top:24px}
-label{display:block;text-align:left;font-size:22px;font-weight:800;margin-bottom:12px;color:#075467}
-input{width:100%;font-size:64px;text-align:center;padding:12px;border:4px solid #1677ff;border-radius:28px;outline:none;color:#122033;box-shadow:0 0 0 7px rgba(22,119,255,.12)}
-.small{font-size:25px;border-radius:18px;padding:12px;box-shadow:none;border:2px solid #d0d7e2}
-.note{margin-top:14px;font-size:18px;color:#526173;text-align:center}
-.warn{margin-top:10px;font-size:16px;color:#b42318;min-height:21px;font-weight:700;text-align:center}
-.settings{margin-top:26px;padding:16px;border-radius:24px;background:#f8fafc;border:1px solid #e5e7eb}
-.settingsTitle{font-size:20px;font-weight:800;margin-bottom:12px;color:#075467}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fieldTitle{font-size:14px;font-weight:700;color:#526173;margin-bottom:5px;text-align:center}
-button{width:100%;margin-top:14px;border:none;border-radius:18px;padding:15px;font-size:18px;font-weight:800;background:#1677ff;color:white}
-.reset{background:#e5e7eb;color:#122033}
-.footer{margin-top:18px;font-size:15px;color:#596579;line-height:1.45;text-align:center}
-@media(max-height:720px){.main{padding-top:15px}#result{font-size:58px}input{font-size:54px}.settings{margin-top:18px}}
+label{
+  display:block;
+  font-size:22px;
+  font-weight:800;
+  color:#075467;
+  margin-bottom:12px;
+}
+.bigInput{
+  width:100%;
+  font-size:64px;
+  text-align:center;
+  padding:12px;
+  border:4px solid #1677ff;
+  border-radius:28px;
+  outline:none;
+  box-shadow:0 0 0 7px rgba(22,119,255,.12);
+}
+.note{
+  text-align:center;
+  margin-top:14px;
+  font-size:18px;
+  color:#526173;
+}
+.warn{
+  min-height:22px;
+  margin-top:10px;
+  text-align:center;
+  color:#b42318;
+  font-weight:700;
+}
+.settings{
+  margin-top:24px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:24px;
+  padding:16px;
+}
+.settingsTitle{
+  font-size:20px;
+  font-weight:800;
+  color:#075467;
+  margin-bottom:12px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.fieldTitle{
+  text-align:center;
+  font-size:14px;
+  font-weight:700;
+  color:#526173;
+  margin-bottom:5px;
+}
+.smallInput{
+  width:100%;
+  font-size:25px;
+  text-align:center;
+  padding:12px;
+  border:2px solid #d0d7e2;
+  border-radius:18px;
+}
+button{
+  width:100%;
+  margin-top:14px;
+  border:0;
+  border-radius:18px;
+  padding:15px;
+  font-size:18px;
+  font-weight:800;
+  background:#1677ff;
+  color:white;
+}
+.reset{
+  background:#e5e7eb;
+  color:#122033;
+}
+.footer{
+  margin-top:18px;
+  text-align:center;
+  color:#596579;
+  line-height:1.45;
+  font-size:15px;
+}
 </style>
 </head>
+
 <body>
-<main class="app">
-<section class="top">
-  <div style="text-align:center"><div id="formulaText" class="formula">(10 ÷ 56) × n</div></div>
-  <div class="resultBox">
-    <div class="resultTitle">INSTANT RESULT</div>
-    <div id="result">0.0</div>
-    <div class="decimal">rounded to 1 decimal place</div>
-  </div>
-</section>
+<div class="app">
 
-<section class="main">
-  <label for="points">Enter total points</label>
-  <input id="points" type="number" inputmode="decimal" placeholder="0">
-  <div id="rangeNote" class="note">Allowed range: 1 to 57</div>
-  <div id="warning" class="warn"></div>
-
-  <section class="settings">
-    <div class="settingsTitle">Change formula</div>
-    <div class="grid">
-      <div><div class="fieldTitle">Top number</div><input id="topNumber" class="small" type="number" value="10"></div>
-      <div><div class="fieldTitle">Bottom number</div><input id="bottomNumber" class="small" type="number" value="56"></div>
-      <div><div class="fieldTitle">Minimum n</div><input id="minNumber" class="small" type="number" value="1"></div>
-      <div><div class="fieldTitle">Maximum n</div><input id="maxNumber" class="small" type="number" value="57"></div>
+  <div class="top">
+    <div style="text-align:center;">
+      <div id="formulaText" class="formula">(10 ÷ 56) × n</div>
     </div>
-    <button id="saveBtn" type="button">Save formula</button>
-    <button id="resetBtn" class="reset" type="button">Reset to 10 ÷ 56</button>
-  </section>
 
-  <div class="footer">
-    Result stays visible because it is sticky at the top.<br>
-    Teacher can change and save the formula.
+    <div class="resultBox">
+      <div class="resultTitle">INSTANT RESULT</div>
+      <div id="result">0.0</div>
+      <div class="decimal">rounded to 1 decimal place</div>
+    </div>
   </div>
-</section>
-</main>
+
+  <div class="main">
+    <label>Enter total points</label>
+    <input id="points" class="bigInput" type="number" inputmode="decimal" placeholder="0">
+
+    <div id="rangeText" class="note">Allowed range: 1 to 57</div>
+    <div id="warning" class="warn"></div>
+
+    <div class="settings">
+      <div class="settingsTitle">Change formula</div>
+
+      <div class="grid">
+        <div>
+          <div class="fieldTitle">Top number</div>
+          <input id="topNumber" class="smallInput" type="number" value="10">
+        </div>
+
+        <div>
+          <div class="fieldTitle">Bottom number</div>
+          <input id="bottomNumber" class="smallInput" type="number" value="56">
+        </div>
+
+        <div>
+          <div class="fieldTitle">Minimum n</div>
+          <input id="minNumber" class="smallInput" type="number" value="1">
+        </div>
+
+        <div>
+          <div class="fieldTitle">Maximum n</div>
+          <input id="maxNumber" class="smallInput" type="number" value="57">
+        </div>
+      </div>
+
+      <button onclick="saveFormula()">Save formula</button>
+      <button class="reset" onclick="resetFormula()">Reset to 10 ÷ 56</button>
+    </div>
+
+    <div class="footer">
+      Result stays visible at the top.<br>
+      Formula is saved on this device.
+    </div>
+  </div>
+</div>
 
 <script>
-(function(){
-  const defaultFormula = { top:10, bottom:56, min:1, max:57 };
+var topValue = 10;
+var bottomValue = 56;
+var minValue = 1;
+var maxValue = 57;
 
-  const el = {
-    points: document.getElementById("points"),
-    result: document.getElementById("result"),
-    warning: document.getElementById("warning"),
-    formulaText: document.getElementById("formulaText"),
-    rangeNote: document.getElementById("rangeNote"),
-    topNumber: document.getElementById("topNumber"),
-    bottomNumber: document.getElementById("bottomNumber"),
-    minNumber: document.getElementById("minNumber"),
-    maxNumber: document.getElementById("maxNumber"),
-    saveBtn: document.getElementById("saveBtn"),
-    resetBtn: document.getElementById("resetBtn")
-  };
+function cleanNumber(value, fallback){
+  value = String(value).replace(",", ".");
+  var number = parseFloat(value);
+  if (isNaN(number)) return fallback;
+  return number;
+}
 
-  function safeNumber(value, fallback){
-    const n = parseFloat(value);
-    return Number.isFinite(n) ? n : fallback;
+function loadFormula(){
+  var saved = localStorage.getItem("tc_formula");
+
+  if(saved){
+    try{
+      var f = JSON.parse(saved);
+      topValue = cleanNumber(f.top, 10);
+      bottomValue = cleanNumber(f.bottom, 56);
+      minValue = cleanNumber(f.min, 1);
+      maxValue = cleanNumber(f.max, 57);
+    }catch(e){}
   }
 
-  function getFormula(){
-    try {
-      const saved = localStorage.getItem("teacherConverterFormula");
-      if (!saved) return {...defaultFormula};
-      const f = JSON.parse(saved);
-      return {
-        top: safeNumber(f.top, 10),
-        bottom: safeNumber(f.bottom, 56),
-        min: safeNumber(f.min, 1),
-        max: safeNumber(f.max, 57)
-      };
-    } catch(e) {
-      return {...defaultFormula};
-    }
+  document.getElementById("topNumber").value = topValue;
+  document.getElementById("bottomNumber").value = bottomValue;
+  document.getElementById("minNumber").value = minValue;
+  document.getElementById("maxNumber").value = maxValue;
+
+  updateFormulaView();
+}
+
+function saveFormula(){
+  topValue = cleanNumber(document.getElementById("topNumber").value, 10);
+  bottomValue = cleanNumber(document.getElementById("bottomNumber").value, 56);
+  minValue = cleanNumber(document.getElementById("minNumber").value, 1);
+  maxValue = cleanNumber(document.getElementById("maxNumber").value, 57);
+
+  if(bottomValue === 0){
+    document.getElementById("warning").innerHTML = "Bottom number cannot be 0.";
+    return;
   }
 
-  function saveFormula(){
-    const f = {
-      top: safeNumber(el.topNumber.value, 10),
-      bottom: safeNumber(el.bottomNumber.value, 56),
-      min: safeNumber(el.minNumber.value, 1),
-      max: safeNumber(el.maxNumber.value, 57)
-    };
-
-    if (f.bottom === 0) {
-      el.warning.textContent = "Bottom number cannot be 0.";
-      return;
-    }
-
-    if (f.min > f.max) {
-      const oldMin = f.min;
-      f.min = f.max;
-      f.max = oldMin;
-      el.minNumber.value = f.min;
-      el.maxNumber.value = f.max;
-    }
-
-    localStorage.setItem("teacherConverterFormula", JSON.stringify(f));
-    updateUI();
-    calculate();
+  if(minValue > maxValue){
+    var temp = minValue;
+    minValue = maxValue;
+    maxValue = temp;
+    document.getElementById("minNumber").value = minValue;
+    document.getElementById("maxNumber").value = maxValue;
   }
 
-  function resetFormula(){
-    localStorage.setItem("teacherConverterFormula", JSON.stringify(defaultFormula));
-    loadFormulaToFields();
-    updateUI();
-    calculate();
-  }
+  localStorage.setItem("tc_formula", JSON.stringify({
+    top: topValue,
+    bottom: bottomValue,
+    min: minValue,
+    max: maxValue
+  }));
 
-  function loadFormulaToFields(){
-    const f = getFormula();
-    el.topNumber.value = f.top;
-    el.bottomNumber.value = f.bottom;
-    el.minNumber.value = f.min;
-    el.maxNumber.value = f.max;
-  }
-
-  function updateUI(){
-    const f = getFormula();
-    el.formulaText.textContent = "(" + f.top + " ÷ " + f.bottom + ") × n";
-    el.points.min = f.min;
-    el.points.max = f.max;
-    el.rangeNote.textContent = "Allowed range: " + f.min + " to " + f.max;
-  }
-
-  function calculate(){
-    const f = getFormula();
-    const n = parseFloat(el.points.value);
-
-    if (!Number.isFinite(n)) {
-      el.result.textContent = "0.0";
-      el.warning.textContent = "";
-      return;
-    }
-
-    if (n < f.min || n > f.max) {
-      el.warning.textContent = "Please enter a number from " + f.min + " to " + f.max + ".";
-    } else {
-      el.warning.textContent = "";
-    }
-
-    const answer = (f.top / f.bottom) * n;
-    el.result.textContent = answer.toFixed(1);
-  }
-
-  el.points.addEventListener("input", calculate);
-  el.topNumber.addEventListener("input", saveFormula);
-  el.bottomNumber.addEventListener("input", saveFormula);
-  el.minNumber.addEventListener("input", saveFormula);
-  el.maxNumber.addEventListener("input", saveFormula);
-  el.saveBtn.addEventListener("click", saveFormula);
-  el.resetBtn.addEventListener("click", resetFormula);
-
-  loadFormulaToFields();
-  updateUI();
+  updateFormulaView();
   calculate();
-})();
+}
+
+function resetFormula(){
+  topValue = 10;
+  bottomValue = 56;
+  minValue = 1;
+  maxValue = 57;
+
+  document.getElementById("topNumber").value = topValue;
+  document.getElementById("bottomNumber").value = bottomValue;
+  document.getElementById("minNumber").value = minValue;
+  document.getElementById("maxNumber").value = maxValue;
+
+  localStorage.setItem("tc_formula", JSON.stringify({
+    top: topValue,
+    bottom: bottomValue,
+    min: minValue,
+    max: maxValue
+  }));
+
+  updateFormulaView();
+  calculate();
+}
+
+function updateFormulaView(){
+  document.getElementById("formulaText").innerHTML =
+    "(" + topValue + " ÷ " + bottomValue + ") × n";
+
+  document.getElementById("rangeText").innerHTML =
+    "Allowed range: " + minValue + " to " + maxValue;
+}
+
+function calculate(){
+  var inputValue = document.getElementById("points").value;
+  var n = cleanNumber(inputValue, NaN);
+
+  if(inputValue === "" || isNaN(n)){
+    document.getElementById("result").innerHTML = "0.0";
+    document.getElementById("warning").innerHTML = "";
+    return;
+  }
+
+  if(n < minValue || n > maxValue){
+    document.getElementById("warning").innerHTML =
+      "Please enter a number from " + minValue + " to " + maxValue + ".";
+  }else{
+    document.getElementById("warning").innerHTML = "";
+  }
+
+  var answer = (topValue / bottomValue) * n;
+  document.getElementById("result").innerHTML = answer.toFixed(1);
+}
+
+window.onload = function(){
+  loadFormula();
+
+  document.getElementById("points").oninput = calculate;
+
+  document.getElementById("topNumber").oninput = saveFormula;
+  document.getElementById("bottomNumber").oninput = saveFormula;
+  document.getElementById("minNumber").oninput = saveFormula;
+  document.getElementById("maxNumber").oninput = saveFormula;
+
+  calculate();
+};
 </script>
 </body>
 </html>
